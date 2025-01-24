@@ -1,4 +1,6 @@
 from xhtml2pdf import pisa
+from string import Template
+
 
 fileName = input("輸入檔名：") + ".pdf"
 fileContent = input("輸入文本：")
@@ -7,8 +9,11 @@ fileContent = input("輸入文本：")
 with open("www//template.html", "r") as html_file:
     html = html_file.read()
     
-html = html.replace("#Title#", fileName)
-html = html.replace("#Content#", fileContent)
+# html = html.replace("#Title#", fileName)
+# html = html.replace("#Content#", fileContent)
+
+template = Template(html)
+html = template.substitute(Title = fileName, Content = fileContent)
 
 # 使用 'wb' 模式寫入 PDF
 with open(fileName, "wb") as pdf_file:
